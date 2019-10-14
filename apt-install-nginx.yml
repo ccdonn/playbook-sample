@@ -1,0 +1,19 @@
+---
+- hosts: workers
+  tasks:
+    - name: apt
+      become: yes
+      apt:
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 86400 #One day
+    - name: install nginx
+      become: yes
+      apt:
+        name: nginx
+        state: present
+    - name: run nginx
+      become: yes
+      service:
+        name: nginx
+        state: started
